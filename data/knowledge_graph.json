@@ -1,0 +1,154 @@
+{
+  "subject": "machine_learning",
+  "subject_name": "Machine Learning",
+  "description": "Knowledge graph for Machine Learning course topics with prerequisite relationships",
+  "topics": {
+    "linear_algebra_basics": {
+      "name": "Linear Algebra Basics",
+      "category": "foundations",
+      "default_difficulty": 0.3,
+      "prerequisites": []
+    },
+    "probability_statistics": {
+      "name": "Probability & Statistics",
+      "category": "foundations",
+      "default_difficulty": 0.35,
+      "prerequisites": []
+    },
+    "calculus_derivatives": {
+      "name": "Calculus & Derivatives",
+      "category": "foundations",
+      "default_difficulty": 0.3,
+      "prerequisites": []
+    },
+    "python_programming": {
+      "name": "Python Programming",
+      "category": "foundations",
+      "default_difficulty": 0.2,
+      "prerequisites": []
+    },
+    "data_preprocessing": {
+      "name": "Data Preprocessing",
+      "category": "data_handling",
+      "default_difficulty": 0.3,
+      "prerequisites": ["python_programming"]
+    },
+    "feature_engineering": {
+      "name": "Feature Engineering",
+      "category": "data_handling",
+      "default_difficulty": 0.45,
+      "prerequisites": ["data_preprocessing", "probability_statistics"]
+    },
+    "linear_regression": {
+      "name": "Linear Regression",
+      "category": "supervised_learning",
+      "default_difficulty": 0.35,
+      "prerequisites": ["linear_algebra_basics", "calculus_derivatives"]
+    },
+    "logistic_regression": {
+      "name": "Logistic Regression",
+      "category": "supervised_learning",
+      "default_difficulty": 0.45,
+      "prerequisites": ["linear_regression", "probability_statistics"]
+    },
+    "decision_trees": {
+      "name": "Decision Trees",
+      "category": "supervised_learning",
+      "default_difficulty": 0.35,
+      "prerequisites": ["data_preprocessing"]
+    },
+    "random_forest": {
+      "name": "Random Forest & Ensemble Methods",
+      "category": "supervised_learning",
+      "default_difficulty": 0.5,
+      "prerequisites": ["decision_trees", "probability_statistics"]
+    },
+    "svm": {
+      "name": "Support Vector Machines",
+      "category": "supervised_learning",
+      "default_difficulty": 0.6,
+      "prerequisites": ["linear_algebra_basics", "logistic_regression"]
+    },
+    "knn": {
+      "name": "K-Nearest Neighbors",
+      "category": "supervised_learning",
+      "default_difficulty": 0.3,
+      "prerequisites": ["linear_algebra_basics", "data_preprocessing"]
+    },
+    "clustering": {
+      "name": "Clustering (K-Means, DBSCAN)",
+      "category": "unsupervised_learning",
+      "default_difficulty": 0.45,
+      "prerequisites": ["linear_algebra_basics", "data_preprocessing"]
+    },
+    "dimensionality_reduction": {
+      "name": "PCA & Dimensionality Reduction",
+      "category": "unsupervised_learning",
+      "default_difficulty": 0.55,
+      "prerequisites": ["linear_algebra_basics", "probability_statistics"]
+    },
+    "model_evaluation": {
+      "name": "Model Evaluation & Metrics",
+      "category": "model_assessment",
+      "default_difficulty": 0.4,
+      "prerequisites": ["probability_statistics", "logistic_regression"]
+    },
+    "cross_validation": {
+      "name": "Cross-Validation & Hyperparameter Tuning",
+      "category": "model_assessment",
+      "default_difficulty": 0.45,
+      "prerequisites": ["model_evaluation"]
+    },
+    "gradient_descent": {
+      "name": "Gradient Descent & Optimization",
+      "category": "optimization",
+      "default_difficulty": 0.5,
+      "prerequisites": ["calculus_derivatives", "linear_regression"]
+    },
+    "regularization": {
+      "name": "Regularization (L1, L2, Dropout)",
+      "category": "optimization",
+      "default_difficulty": 0.5,
+      "prerequisites": ["linear_regression", "gradient_descent"]
+    },
+    "neural_networks_basics": {
+      "name": "Neural Networks Basics",
+      "category": "deep_learning",
+      "default_difficulty": 0.55,
+      "prerequisites": ["linear_algebra_basics", "gradient_descent", "logistic_regression"]
+    },
+    "backpropagation": {
+      "name": "Backpropagation",
+      "category": "deep_learning",
+      "default_difficulty": 0.65,
+      "prerequisites": ["neural_networks_basics", "calculus_derivatives", "gradient_descent"]
+    },
+    "cnn": {
+      "name": "Convolutional Neural Networks",
+      "category": "deep_learning",
+      "default_difficulty": 0.7,
+      "prerequisites": ["neural_networks_basics", "backpropagation"]
+    },
+    "rnn_lstm": {
+      "name": "RNN & LSTM",
+      "category": "deep_learning",
+      "default_difficulty": 0.75,
+      "prerequisites": ["neural_networks_basics", "backpropagation"]
+    },
+    "transformers_attention": {
+      "name": "Transformers & Attention Mechanism",
+      "category": "deep_learning",
+      "default_difficulty": 0.8,
+      "prerequisites": ["rnn_lstm", "linear_algebra_basics"]
+    }
+  },
+  "categories": {
+    "foundations": "Foundational Mathematics & Programming",
+    "data_handling": "Data Processing & Feature Engineering",
+    "supervised_learning": "Supervised Learning Algorithms",
+    "unsupervised_learning": "Unsupervised Learning & Clustering",
+    "model_assessment": "Model Evaluation & Validation",
+    "optimization": "Optimization & Regularization",
+    "deep_learning": "Deep Learning Architectures"
+  }
+}
