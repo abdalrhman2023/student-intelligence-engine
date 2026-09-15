@@ -56,7 +56,8 @@ class BKTKnowledgeTracer:
         p_s = self.default_params.p_slip if self.default_params else 0.10
         p_l0 = self.default_params.p_init if self.default_params else 0.10
 
-        p_l = self._states[user_id].get(topic_id, p_l0)
+        # Safe bounds to prevent probability collapse / numerical degeneracy
+        p_l = max(0.001, min(0.999, self._states[user_id].get(topic_id, p_l0)))
 
         # Observation update
         if is_correct:
@@ -66,13 +67,21 @@ class BKTKnowledgeTracer:
             numerator = p_l * p_s
             denominator = numerator + (1.0 - p_l) * (1.0 - p_g)
 
-        p_l_given_obs = numerator / denominator if denominator > 0 else 0.0
+        p_l_given_obs = numerator / denominator if denominator > 1e-9 else p_l
 
         # Learning transition update
         p_l_new = p_l_given_obs + (1.0 - p_l_given_obs) * p_t
+        p_l_new = max(0.001, min(0.999, p_l_new))
 
         self._states[user_id][topic_id] = p_l_new
         return p_l_new
+
+    def set_prior(self, user_id: str, topic_id: str, prior: float):
+        """Sets initial mastery estimate if not already observed."""
+        if user_id not in self._states:
+            self._states[user_id] = {}
+        if topic_id not in self._states[user_id]:
+            self._states[user_id][topic_id] = max(0.001, min(0.999, prior))
 
     def get_mastery(self, user_id: str, topic_id: str) -> float:
         """Returns current mastery estimate or 0.0 if unobserved."""

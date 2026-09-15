@@ -60,13 +60,18 @@ class ConsistencyTracker:
         ema_7d = self._compute_ema(daily_scores[-7:], self.ema_alpha_7d) if len(daily_scores) >= 7 else 0.5
         ema_14d = self._compute_ema(daily_scores[-14:], self.ema_alpha_14d) if len(daily_scores) >= 14 else 0.5
 
-        # Compute consecutive streak counting backwards
+        # Compute consecutive active study streak counting backwards from today/yesterday
         current_streak = 0
-        for d in reversed(sorted_days):
-            if daily_activity[d] >= 0.5:
-                current_streak += 1
-            else:
-                break
+        today_date = reference_date.date()
+        yesterday_date = today_date - datetime.timedelta(days=1)
+
+        # Start checking from today if user studied today; otherwise check from yesterday
+        start_date = today_date if daily_activity.get(today_date, 0.0) >= 0.5 else yesterday_date
+
+        cursor_date = start_date
+        while cursor_date in daily_activity and daily_activity[cursor_date] >= 0.5:
+            current_streak += 1
+            cursor_date -= datetime.timedelta(days=1)
 
         # Determine momentum trajectory
         if ema_7d >= 0.75:

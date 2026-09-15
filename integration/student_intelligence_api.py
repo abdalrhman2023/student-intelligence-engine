@@ -65,9 +65,17 @@ class StudentIntelligenceEngine:
     def log_quiz_interaction(self, interaction: QuizInteraction) -> float:
         """Logs an assessment attempt and updates latent mastery."""
         user_id = interaction.user_id
+        topic_id = interaction.topic_id
+
         if user_id not in self._user_quiz_interactions:
             self._user_quiz_interactions[user_id] = []
         self._user_quiz_interactions[user_id].append(interaction)
+
+        # Ensure prerequisite-adjusted prior is set if topic is newly encountered
+        if self.bkt_tracer.get_mastery(user_id, topic_id) == 0.0:
+            user_masteries = self.bkt_tracer.get_all_masteries(user_id)
+            adjusted_prior = self.prereq_graph.adjust_prior(topic_id, user_masteries)
+            self.bkt_tracer.set_prior(user_id, topic_id, adjusted_prior)
 
         return self.bkt_tracer.update(interaction)
 
