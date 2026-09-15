@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Student Intelligence Engine
 
 A production-grade Python intelligence engine for personalized education and adaptive study systems. This module serves as the **Learner Modeling & Student Profiling Microservice**, implementing:
@@ -204,3 +205,6 @@ To run the complete unit and integration test suite:
 python tests/test_intelligence.py
 ```
 All components validate without external test-runner dependencies.
+=======
+# student-intelligence-engine
+>>>>>>> 5aef5617f4b3fabed7b639279adddd83294908e2
